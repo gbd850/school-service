@@ -3,8 +3,9 @@ package dev.peter.springdatajpapractice.service;
 import dev.peter.springdatajpapractice.dto.CourseRequestDto;
 import dev.peter.springdatajpapractice.model.Course;
 import dev.peter.springdatajpapractice.model.CourseMaterial;
-import dev.peter.springdatajpapractice.repository.CourseMaterialRepository;
+import dev.peter.springdatajpapractice.model.Teacher;
 import dev.peter.springdatajpapractice.repository.CourseRepository;
+import dev.peter.springdatajpapractice.repository.TeacherRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,30 +17,31 @@ import java.util.Optional;
 public class CourseService {
 
     private CourseRepository courseRepository;
-    private CourseMaterialRepository courseMaterialRepository;
+    private TeacherRepository teacherRepository;
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
 
     public Course createCourse(CourseRequestDto courseRequestDto) {
-//        Course.CourseBuilder course = Course.builder()
-//                .title(courseRequestDto.getTitle())
-//                .credit(courseRequestDto.getCredit());
-//        Optional<CourseMaterial> courseMaterialOptional = courseMaterialRepository.findByUrl(courseRequestDto.getCourseMaterialUrl());
-//        courseMaterialOptional.ifPresentOrElse(
-//                course::courseMaterial,
-//                () -> course.courseMaterial(
-//                        CourseMaterial.builder().url(courseRequestDto.getCourseMaterialUrl()).build()
-//                )
-//        );
-//        return courseRepository.save(course.build());
-        Course course = Course.builder()
+        Course.CourseBuilder course = Course.builder()
                 .title(courseRequestDto.getTitle())
                 .credit(courseRequestDto.getCredit())
                 .courseMaterial(CourseMaterial.builder()
                         .url(courseRequestDto.getCourseMaterialUrl())
-                        .build())
-                .build();
-        return courseRepository.save(course);
+                        .build());
+        if (courseRequestDto.getTeacher() != null) {
+            Teacher teacher = courseRequestDto.getTeacher();
+            Optional<Teacher> teacherOptional = teacherRepository.findById(teacher.getId());
+            teacherOptional.ifPresentOrElse(
+                    course::teacher,
+                    () -> course.teacher(
+                            Teacher.builder()
+                                    .firstName(teacher.getFirstName())
+                                    .lastName(teacher.getLastName())
+                                    .build()
+                    )
+            );
+        }
+        return courseRepository.save(course.build());
     }
 }
