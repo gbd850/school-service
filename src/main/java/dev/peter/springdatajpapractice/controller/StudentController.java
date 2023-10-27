@@ -1,8 +1,8 @@
-package dev.peter.springdatajpapractise.controller;
+package dev.peter.springdatajpapractice.controller;
 
-import dev.peter.springdatajpapractise.dto.StudentDto;
-import dev.peter.springdatajpapractise.model.Student;
-import dev.peter.springdatajpapractise.service.StudentService;
+import dev.peter.springdatajpapractice.dto.StudentDto;
+import dev.peter.springdatajpapractice.model.Student;
+import dev.peter.springdatajpapractice.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

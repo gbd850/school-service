@@ -1,4 +1,4 @@
-package dev.peter.springdatajpapractise.model;
+package dev.peter.springdatajpapractice.model;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;

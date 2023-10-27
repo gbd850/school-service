@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>dev.peter</groupId>
-	<artifactId>spring-data-jpa-practise</artifactId>
+	<artifactId>spring-data-jpa-practice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-data-jpa-practise</name>
-	<description>Spring Data JPA Practise Project</description>
+	<name>spring-data-jpa-practice</name>
+	<description>Spring Data JPA Practice Project</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

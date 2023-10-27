@@ -1,4 +1,4 @@
-package dev.peter.springdatajpapractise.dto;
+package dev.peter.springdatajpapractice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

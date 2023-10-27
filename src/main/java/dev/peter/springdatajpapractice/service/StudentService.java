@@ -1,9 +1,9 @@
-package dev.peter.springdatajpapractise.service;
+package dev.peter.springdatajpapractice.service;
 
-import dev.peter.springdatajpapractise.dto.StudentDto;
-import dev.peter.springdatajpapractise.model.Guardian;
-import dev.peter.springdatajpapractise.model.Student;
-import dev.peter.springdatajpapractise.repository.StudentRepository;
+import dev.peter.springdatajpapractice.dto.StudentDto;
+import dev.peter.springdatajpapractice.model.Guardian;
+import dev.peter.springdatajpapractice.model.Student;
+import dev.peter.springdatajpapractice.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
