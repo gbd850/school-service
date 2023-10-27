@@ -1,6 +1,6 @@
 package dev.peter.springdatajpapractice.controller;
 
-import dev.peter.springdatajpapractice.dto.StudentDto;
+import dev.peter.springdatajpapractice.dto.StudentRequestDto;
 import dev.peter.springdatajpapractice.model.Student;
 import dev.peter.springdatajpapractice.service.StudentService;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class StudentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Student createStudent(@RequestBody StudentDto studentDto) {
+    public Student createStudent(@RequestBody StudentRequestDto studentDto) {
         return studentService.createStudent(studentDto);
     }
 }

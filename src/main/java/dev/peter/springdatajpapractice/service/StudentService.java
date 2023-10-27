@@ -1,6 +1,6 @@
 package dev.peter.springdatajpapractice.service;
 
-import dev.peter.springdatajpapractice.dto.StudentDto;
+import dev.peter.springdatajpapractice.dto.StudentRequestDto;
 import dev.peter.springdatajpapractice.model.Guardian;
 import dev.peter.springdatajpapractice.model.Student;
 import dev.peter.springdatajpapractice.repository.StudentRepository;
@@ -18,7 +18,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student createStudent(StudentDto studentDto) {
+    public Student createStudent(StudentRequestDto studentDto) {
         Student student = Student.builder()
                 .firstName(studentDto.getFirstName())
                 .lastName(studentDto.getLastName())
