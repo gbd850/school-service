@@ -25,7 +25,7 @@ public class Course {
     private Long id;
     private String title;
     private Integer credit;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,optional = false)
     @JoinColumn(
             name = "course_material_id",
             referencedColumnName = "id"

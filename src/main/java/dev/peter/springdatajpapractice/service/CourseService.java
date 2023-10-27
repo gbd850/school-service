@@ -22,16 +22,24 @@ public class CourseService {
     }
 
     public Course createCourse(CourseRequestDto courseRequestDto) {
-        Course.CourseBuilder course = Course.builder()
+//        Course.CourseBuilder course = Course.builder()
+//                .title(courseRequestDto.getTitle())
+//                .credit(courseRequestDto.getCredit());
+//        Optional<CourseMaterial> courseMaterialOptional = courseMaterialRepository.findByUrl(courseRequestDto.getCourseMaterialUrl());
+//        courseMaterialOptional.ifPresentOrElse(
+//                course::courseMaterial,
+//                () -> course.courseMaterial(
+//                        CourseMaterial.builder().url(courseRequestDto.getCourseMaterialUrl()).build()
+//                )
+//        );
+//        return courseRepository.save(course.build());
+        Course course = Course.builder()
                 .title(courseRequestDto.getTitle())
-                .credit(courseRequestDto.getCredit());
-        Optional<CourseMaterial> courseMaterialOptional = courseMaterialRepository.findByUrl(courseRequestDto.getCourseMaterialUrl());
-        courseMaterialOptional.ifPresentOrElse(
-                course::courseMaterial,
-                () -> course.courseMaterial(
-                        CourseMaterial.builder().url(courseRequestDto.getCourseMaterialUrl()).build()
-                )
-        );
-        return courseRepository.save(course.build());
+                .credit(courseRequestDto.getCredit())
+                .courseMaterial(CourseMaterial.builder()
+                        .url(courseRequestDto.getCourseMaterialUrl())
+                        .build())
+                .build();
+        return courseRepository.save(course);
     }
 }
