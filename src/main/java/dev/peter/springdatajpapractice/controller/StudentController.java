@@ -1,10 +1,12 @@
 package dev.peter.springdatajpapractice.controller;
 
+import dev.peter.springdatajpapractice.dto.StudentCourseDto;
 import dev.peter.springdatajpapractice.dto.StudentRequestDto;
 import dev.peter.springdatajpapractice.model.Student;
 import dev.peter.springdatajpapractice.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,5 +27,11 @@ public class StudentController {
     @ResponseStatus(HttpStatus.CREATED)
     public Student createStudent(@RequestBody StudentRequestDto studentDto) {
         return studentService.createStudent(studentDto);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Student> addCourseToStudent(@RequestBody StudentCourseDto studentCourseDto) {
+        return studentService.addCourseToStudent(studentCourseDto);
     }
 }
