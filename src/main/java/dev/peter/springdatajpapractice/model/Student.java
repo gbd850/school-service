@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -37,4 +39,17 @@ public class Student {
     private String email;
     @Embedded
     private Guardian guardian;
+    @ManyToMany
+    /*!!!*/@JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(
+                    name = "student_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "course_id",
+                    referencedColumnName = "id"
+            )
+    )
+    private List<Course> courses;
 }
