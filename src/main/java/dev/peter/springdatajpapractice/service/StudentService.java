@@ -8,11 +8,9 @@ import dev.peter.springdatajpapractice.model.Student;
 import dev.peter.springdatajpapractice.repository.CourseRepository;
 import dev.peter.springdatajpapractice.repository.StudentRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Optional;
