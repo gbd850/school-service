@@ -1,6 +1,8 @@
 package dev.peter.springdatajpapractice.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,11 +33,15 @@ public class Student {
             generator = "student_sequence"
     )
     private Long id;
+    @NotBlank(message = "First name cannot be blank")
     private String firstName;
+    @NotBlank(message = "Last name cannot be blank")
     private String lastName;
     @Column(
             nullable = false
     )
+    @NotBlank(message = "Email address cannot be blank")
+    @Email(message = "This is not an email")
     private String email;
     @Embedded
     private Guardian guardian;

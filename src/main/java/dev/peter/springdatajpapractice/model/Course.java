@@ -1,10 +1,12 @@
 package dev.peter.springdatajpapractice.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Data
@@ -23,7 +25,9 @@ public class Course {
             generator = "course_sequence"
     )
     private Long id;
+    @NotBlank(message = "Title cannot be blank")
     private String title;
+    @Range(min = 1, max = 10, message = "Credit must be in range from 1 to 10")
     private Integer credit;
     @OneToOne(cascade = CascadeType.ALL,optional = false)
     @JoinColumn(
