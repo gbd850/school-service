@@ -31,9 +31,9 @@ public class StudentService {
                 .lastName(studentDto.getLastName())
                 .email(studentDto.getEmail())
                 .guardian(Guardian.builder()
-                        .name("Guardian1")
-                        .email("guardian1@gmail.com")
-                        .mobile("123456789")
+                        .name(studentDto.getGuardianName())
+                        .email(studentDto.getGuardianEmail())
+                        .mobile(studentDto.getGuardianMobile())
                         .build())
                 .build();
         return studentRepository.save(student);

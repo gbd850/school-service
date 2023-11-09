@@ -43,7 +43,10 @@ public class Student {
     @NotBlank(message = "Email address cannot be blank")
     @Email(message = "This is not an email")
     private String email;
-    @Embedded
+//    @Embedded
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "guardian_id",
+            referencedColumnName = "id")
     private Guardian guardian;
     @ManyToMany
     /*!!!*/@JoinTable(
