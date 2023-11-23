@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableAutoConfiguration(exclude= SecurityAutoConfiguration.class)
 @AutoConfigureTestDatabase
 public class CourseControllerTest {
-
     @Autowired
     private MockMvc mvc;
 
