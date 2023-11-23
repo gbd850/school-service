@@ -7,7 +7,9 @@ import dev.peter.springdatajpapractice.model.Teacher;
 import dev.peter.springdatajpapractice.repository.CourseRepository;
 import dev.peter.springdatajpapractice.repository.TeacherRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,5 +45,9 @@ public class CourseService {
             );
         }
         return courseRepository.save(course.build());
+    }
+
+    public Course getCourseById(Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
     }
 }
