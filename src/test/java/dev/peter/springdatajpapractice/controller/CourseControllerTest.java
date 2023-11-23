@@ -28,10 +28,10 @@ class CourseControllerTest {
     private CourseService courseService;
 
     @Test
-    public givenCourdeId_whenCourse_thenStatus200() throws Exception {
+    public void givenCourdeId_whenCourse_thenStatus200() throws Exception {
 
         Long id = 1L;
-        when(courseService.getCourseById(id)).thenReturn(Course.builder().id(1L).title("Course 1").credit(5).build()));
+        when(courseService.getCourseById(id)).thenReturn(Course.builder().id(1L).title("Course 1").credit(5).build());
 
         mvc.perform(get("/api/courses/1")
                         .contentType(MediaType.APPLICATION_JSON))
