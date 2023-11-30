@@ -42,8 +42,7 @@ public class AuthProvider implements AuthenticationProvider {
             throw new AuthenticationCredentialsNotFoundException("Invalid credentials");
         }
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("USER"));
+        List<GrantedAuthority> authorities = new ArrayList<>(user.get().getAuthorities());
 
         return new UsernamePasswordAuthenticationToken(username, password, authorities);
     }
