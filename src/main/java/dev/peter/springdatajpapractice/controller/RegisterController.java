@@ -5,6 +5,7 @@ import dev.peter.springdatajpapractice.model.User;
 import dev.peter.springdatajpapractice.service.SecurityUserDetailsService;
 import jakarta.servlet.http.HttpServlet;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,17 +24,17 @@ public class RegisterController {
     private SecurityUserDetailsService userDetailsService;
     private AuthenticationManager authenticationManager;
 
-    @GetMapping
-    public ResponseEntity<String> greetUser(HttpServlet httpServlet) {
-        return new ResponseEntity<>("Hello " + httpServlet.getServletName(), HttpStatus.OK);
+    @GetMapping("/")
+    public ResponseEntity<String> greetUser(Authentication authentication) {
+        return new ResponseEntity<>("Hello " + authentication.getName(), HttpStatus.OK);
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody UserRequestDto userRequestDto) {
         return userDetailsService.registerUser(userRequestDto);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody UserRequestDto loginDto){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsername(), loginDto.getPassword()));

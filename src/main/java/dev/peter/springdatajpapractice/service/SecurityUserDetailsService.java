@@ -1,6 +1,7 @@
 package dev.peter.springdatajpapractice.service;
 
 import dev.peter.springdatajpapractice.dto.UserRequestDto;
+import dev.peter.springdatajpapractice.model.Role;
 import dev.peter.springdatajpapractice.model.User;
 import dev.peter.springdatajpapractice.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
         User user = User.builder()
                 .username(userRequestDto.getUsername())
                 .password(passwordEncoder.encode(userRequestDto.getPassword()))
+                .role(Role.USER)
                 .accountNonLocked(true)
                 .build();
         createUser(user);
