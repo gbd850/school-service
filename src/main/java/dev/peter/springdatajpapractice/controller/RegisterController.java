@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController {
 
     private SecurityUserDetailsService userDetailsService;
-    private AuthenticationManager authenticationManager;
 
     @GetMapping("/")
     public ResponseEntity<String> greetUser(Authentication authentication) {
@@ -31,14 +30,11 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody UserRequestDto userRequestDto) {
-        return userDetailsService.registerUser(userRequestDto);
+        return new ResponseEntity<>(userDetailsService.registerUser(userRequestDto), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody UserRequestDto loginDto){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getUsername(), loginDto.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("User login successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(userDetailsService.authenticateUser(loginDto), HttpStatus.OK);
     }
 }

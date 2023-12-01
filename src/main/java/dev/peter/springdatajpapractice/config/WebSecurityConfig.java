@@ -19,22 +19,20 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
-@EnableMethodSecurity
 public class WebSecurityConfig {
+
+    private static final String[] WHITE_LIST_URL = {
+            "/register",
+            "/login"
+    };
 
     private JwtAuthenticationFilter jwtAuthFilter;
     private AuthenticationProvider authenticationProvider;
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/register**").permitAll())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/login").permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(WHITE_LIST_URL).permitAll())
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
