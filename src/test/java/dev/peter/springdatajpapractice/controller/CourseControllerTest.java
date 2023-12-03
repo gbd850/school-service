@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = SpringDataJpaPractiseApplication.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @EnableAutoConfiguration(exclude= SecurityAutoConfiguration.class)
 @AutoConfigureTestDatabase
 @RunWith(SpringRunner.class)
@@ -49,6 +49,7 @@ public class CourseControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.title", is("Course 1")).hasJsonPath());
+                .andExpect(jsonPath("$.title").value("Course 1"))
+                .andReturn();
     }
 }

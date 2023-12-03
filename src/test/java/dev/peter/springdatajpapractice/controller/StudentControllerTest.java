@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = SpringDataJpaPractiseApplication.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @EnableAutoConfiguration(exclude= SecurityAutoConfiguration.class)
 @AutoConfigureTestDatabase
 class StudentControllerTest {
