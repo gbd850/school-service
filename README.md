@@ -63,3 +63,5 @@ string
 * Spring Security
 * SpringDoc
 * MySQL
+* JUnit 5
+* Mockito
