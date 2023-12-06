@@ -23,7 +23,8 @@ public class WebSecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {
             "/register",
-            "/login"
+            "/login",
+            "/v3/api-docs"
     };
 
     private JwtAuthenticationFilter jwtAuthFilter;
