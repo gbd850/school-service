@@ -35,4 +35,14 @@ class CourseMaterialRepositoryTest {
                 .get()
                 .isEqualTo(courseMaterial);
     }
+
+    @Test
+    void givenUrlDoesNotExist_whenFindByUrl_thenReturnEmptyOptional() {
+        // given
+        String url = "url";
+        // when
+        Optional<CourseMaterial> expected = courseMaterialRepository.findByUrl(url);
+        // then
+        assertThat(expected).isEmpty();
+    }
 }

@@ -42,4 +42,35 @@ class CourseRepositoryTest {
                 .allMatch(c -> c.getTitle().contains(partialTitle))
                 .allMatch(c -> c.getTitle().equals(title));
     }
+
+    @Test
+    void givenInvalidPartialTitle_whenFindCourseByTitleFirstPage_thenReturnEmptyPage() {
+        // given
+        String title = "title";
+        CourseMaterial courseMaterial = new CourseMaterial(1L, "url");
+        Course course = new Course(1L, title, 4, courseMaterial, null);
+        courseRepository.save(course);
+        // when
+        String partialTitle = "invalidTitle";
+        Page<Course> expected = courseRepository.findByTitleContaining(
+                partialTitle,
+                PageRequest.of(0, 3, Sort.by("title").descending())
+        );
+        // then
+        assertThat(expected).isEmpty();
+    }
+
+    @Test
+    void givenNoCourse_whenFindCourseByTitleFirstPage_thenReturnEmptyPage() {
+        // given
+        String title = "title";
+        // when
+        String partialTitle = "tit";
+        Page<Course> expected = courseRepository.findByTitleContaining(
+                partialTitle,
+                PageRequest.of(0, 3, Sort.by("title").descending())
+        );
+        // then
+        assertThat(expected).isEmpty();
+    }
 }
