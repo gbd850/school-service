@@ -73,7 +73,7 @@ class TokenRepositoryTest {
     }
 
     @Test
-    void givenInvalidTokenName_whenFindByToken_thenReturnTokenOptional() {
+    void givenInvalidTokenName_whenFindByToken_thenReturnEmptyOptional() {
         // given
         String invalidTokenName = "token";
         // when
