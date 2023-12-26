@@ -1,6 +1,8 @@
 package dev.peter.springdatajpapractice.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,19 +17,19 @@ public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
 
     @Column(unique = true)
-    public String token;
+    private String token;
 
     @Enumerated(EnumType.STRING)
-    public TokenType tokenType = TokenType.BEARER;
+    private TokenType tokenType = TokenType.BEARER;
 
-    public boolean revoked;
+    private boolean revoked;
 
-    public boolean expired;
+    private boolean expired;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    public User user;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }
