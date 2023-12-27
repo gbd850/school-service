@@ -33,7 +33,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    public void createUser(UserDetails user) {
+    private void createUser(UserDetails user) {
         userRepository.save((User) user);
     }
 
