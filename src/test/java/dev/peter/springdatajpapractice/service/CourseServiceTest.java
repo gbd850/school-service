@@ -70,7 +70,7 @@ class CourseServiceTest {
                 .teacher(null)
                 .build();
 
-        assertThat(capturedCourse).isEqualTo(expected);
+        assertThat(expected).isEqualTo(capturedCourse);
     }
 
     @Test
