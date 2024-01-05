@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,26 +27,42 @@ public class StudentService {
     }
 
     public Student createStudent(StudentRequestDto studentDto) {
+        if (studentDto == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Student cannot be null");
+        }
+
+        boolean isValidGuardian =
+                (studentDto.getGuardianName() != null && !studentDto.getGuardianName().isEmpty()) &&
+                        (studentDto.getGuardianMobile() != null && !studentDto.getGuardianMobile().isEmpty()) &&
+                        (studentDto.getGuardianEmail() != null && !studentDto.getGuardianEmail().isEmpty());
+
         Student student = Student.builder()
                 .firstName(studentDto.getFirstName())
                 .lastName(studentDto.getLastName())
                 .email(studentDto.getEmail())
-                .guardian(Guardian.builder()
+                .guardian(isValidGuardian ? Guardian.builder()
                         .name(studentDto.getGuardianName())
                         .email(studentDto.getGuardianEmail())
                         .mobile(studentDto.getGuardianMobile())
-                        .build())
+                        .build()
+                        : null)
                 .build();
         return studentRepository.save(student);
     }
 
     public ResponseEntity<Student> addCourseToStudent(StudentCourseDto studentCourseDto) {
-        Optional<Student> student = studentRepository.findById(studentCourseDto.getStudentId());
-        Optional<Course> course = courseRepository.findById(studentCourseDto.getCourseId());
-        if (student.isEmpty() || course.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (studentCourseDto.getStudentId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Student id cannot be null");
         }
-        student.get().getCourses().add(course.get());
-        return new ResponseEntity<>(studentRepository.save(student.get()), HttpStatus.OK);
+         if (studentCourseDto.getCourseId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Course id cannot be null");
+        }
+
+        Student student = studentRepository.findById(studentCourseDto.getStudentId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid student id"));
+        Course course = courseRepository.findById(studentCourseDto.getCourseId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid course id"));
+        student.getCourses().add(course);
+        return new ResponseEntity<>(studentRepository.save(student), HttpStatus.OK);
     }
 }

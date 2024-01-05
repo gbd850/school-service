@@ -38,6 +38,17 @@ public class SecurityUserDetailsService implements UserDetailsService {
     }
 
     public User registerUser(UserRequestDto userRequestDto) {
+        if (userRequestDto == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot be null");
+        }
+
+        if (userRequestDto.getUsername() == null || userRequestDto.getUsername().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username cannot be null");
+        }
+        if (userRequestDto.getPassword() == null || userRequestDto.getPassword().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password cannot be null");
+        }
+
         User user = User.builder()
                 .username(userRequestDto.getUsername())
                 .password(passwordEncoder.encode(userRequestDto.getPassword()))
